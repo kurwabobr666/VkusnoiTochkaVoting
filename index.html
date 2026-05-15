@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вкусно — и точка: Новые бургеры</title>
+    <style>
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Шапка сайта (как на vkusnoitochka.ru) */
+        .header {
+            background-color: #d32f2f;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Основной контейнер */
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #d32f2f;
+            margin-bottom: 30px;
+        }
+
+        /* Карточки бургеров */
+        .burger-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .burger-card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e0e0e0;
+        }
+
+        .burger-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .burger-card.selected {
+            border-color: #d32f2f;
+            background-color: #ffebee;
+        }
+
+        .burger-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .burger-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .burger-title {
+            font-size: 1.2em;
+            margin-top: 15px;
+            color: #d32f2f;
+        }
+
+        .burger-description {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Кнопка подтверждения */
+        .confirm-btn {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 40px auto 20px auto;
+            padding: 15px;
+            font-size: 1.1em;
+            color: white;
+            background-color: #d32f2f;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .confirm-btn[disabled] {
+             background-color: #b71c1c;
+             cursor: not-allowed;
+         }
+
+         /* Страница благодарности */
+         .thank-you-page {
+             display: none;
+             text-align: center;
+             padding-top: 100px;
+         }
+
+         .thank-you-page h3 {
+             font-size: 1.8em;
+             color: #d32f2f;
+             margin-bottom: 15px;
+         }
+
+         .thank-you-page p {
+             font-size: 1.1em;
+             color: #555;
+             margin-bottom: 40px;
+         }
+
+         /* Адаптивность для мобильных */
+         @media (max-width: 600px) {
+             .header h1 { font-size: 1.5em; }
+             h2 { font-size: 1.5em; }
+         }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <div class="header">
+         <h1>Вкусно — и точка</h1>
+         <p>Новый вкус — новые эмоции</p>
+     </div>
+
+    <!-- Главный экран -->
+    <div class="container" id="main-page">
+         <h2>Выберите бургер для основного меню</h2>
+         
+         <div class="burger-grid">
+             
+             <!-- Бургер №1 - Техасский Джек -->
+             <div class="burger-card" data-id="1">
+                 <div class="burger-image">
+                     <img src="img/burger1.png" alt="Бургер Техасский Джек">
+                 </div>
+                 <div class="burger-title">Техасский Джек</div>
+                 <div class="burger-description">Классический бифбургер с пикантным соусом BBQ и маринованным луком.</div>
+             </div>
+
+             <!-- Бургер №2 - Сырный Бум -->
+             <div class="burger-card" data-id="2">
+                 <div class="burger-image">
+                     <img src="img/burger2.png" alt="Бургер Сырный Бум">
+                 </div>
+                 <div class="burger-title">Сырный Бум</div>
+                 <div class="burger-description">Двойная порция сыра Чеддер, хрустящий лук и фирменный соус «Сырный».</div>
+             </div>
+
+             <!-- Бургер №3 - Острая Мексика -->
+             <div class="burger-card" data-id="3">
+                 <div class="burger-image">
+                     <img src="img/burger3.png" alt="Бургер Острая Мексика">
+                 </div>
+                 <div class="burger-title">Острая Мексика</div>
+                 <div class="burger-description">Острый бургер с перцем халапеньо, соусом сальса и кукурузной лепешкой.</div>
+             </div>
+             
+         </div>
+
+         <button class="confirm-btn" id="confirmBtn" disabled>Подтвердить выбор</button>
+     </div>
+
+    <!-- Экран благодарности -->
+    <div class="container thank-you-page" id="thank-you-page">
+         <h3>Ваше мнение очень важно для нас!</h3>
+         <p>Спасибо за участие в голосовании. Мы обязательно учтем ваш выбор при обновлении меню.</p>
+         <button class="confirm-btn" onclick="location.reload()">Вернуться к выбору</button>
+     </div>
+
+    <script>
+        const cards = document.querySelectorAll('.burger-card');
+        const confirmBtn = document.getElementById('confirmBtn');
+
+        let selectedCard = null;
+
+        cards.forEach(card => {
+             card.addEventListener('click', () => {
+                 if (selectedCard === card) return; 
+                 
+                 if (selectedCard) {
+                     selectedCard.classList.remove('selected');
+                 }
+                 
+                 card.classList.add('selected');
+                 selectedCard = card;
+                 confirmBtn.disabled = false;
+                 confirmBtn.textContent = "Подтвердить выбор";
+             });
+         });
+
+         confirmBtn.addEventListener('click', () => {
+             if (!selectedCard) return;
+             document.getElementById('main-page').style.display = 'none';
+             document.getElementById('thank-you-page').style.display = 'block';
+             console.log('Выбран бургер ID:', selectedCard.dataset.id);
+         });
+    </script>
+</body>
+</html>
